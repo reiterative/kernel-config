@@ -14,7 +14,7 @@
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_cwe_context">1. CWE context</a></li>
+<li><a href="#_configs_for_safety_analysis">1. Configs for safety analysis</a></li>
 </ul>
 </div>
 </div>
@@ -25,205 +25,1259 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_cwe_context"><a class="anchor" href="#_cwe_context"></a><a class="link" href="#_cwe_context">1. CWE context</a></h2>
+<h2 id="_configs_for_safety_analysis"><a class="anchor" href="#_configs_for_safety_analysis"></a><a class="link" href="#_configs_for_safety_analysis">1. Configs for safety analysis</a></h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 28.5714%;">
-<col style="width: 7.1428%;">
-<col style="width: 21.4285%;">
-<col style="width: 21.4285%;">
-<col style="width: 21.4288%;">
+<col style="width: 6.0606%;">
+<col style="width: 9.0909%;">
+<col style="width: 6.0606%;">
+<col style="width: 9.0909%;">
+<col style="width: 3.0303%;">
+<col style="width: 12.1212%;">
+<col style="width: 6.0606%;">
+<col style="width: 9.0909%;">
+<col style="width: 6.0606%;">
+<col style="width: 9.0909%;">
+<col style="width: 6.0606%;">
+<col style="width: 6.0606%;">
+<col style="width: 6.0606%;">
+<col style="width: 6.0607%;">
 </colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Kernel configuration subsytem:attributes</th>
+<th class="tableblock halign-left valign-top">Kernel configurations</th>
+<th class="tableblock halign-left valign-top">Key Configuration Dependencies : notes</th>
+<th class="tableblock halign-left valign-top">Architecture Dependencies</th>
+<th class="tableblock halign-left valign-top">Safety Default Setting</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Related CVEs</th>
+<th class="tableblock halign-left valign-top">Related ExploitDB Scripts</th>
+<th class="tableblock halign-left valign-top">Weaknesses/ Limitations</th>
+<th class="tableblock halign-left valign-top">Supported Kernel Versions</th>
+<th class="tableblock halign-left valign-top">General Guidelines</th>
+<th class="tableblock halign-left valign-top">Performance Impact</th>
+<th class="tableblock halign-left valign-top">Suggested for Instance Types</th>
+<th class="tableblock halign-left valign-top">Kernel doc references</th>
+</tr>
+</thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">System characteristics</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Failure modes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Faults (derived from ISO26262)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CWE&#8217;s included in each category</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel configuration subsytem:attributes</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Memory partitions dedicated to each software component shall be configured to prevent faults caused by interference between software components.  Data stored within each memory partition shall be protected from corruption or inconsistency (e.g., due to update operation on the data).  Stack and heap memory shall be protected from under or overflow, and access control shall be enforced so that prohibited read or write access to memory allocated to another software component shall be blocked.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Memory</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ISO26262 serves as an example to demonstrate how each kernel configuration may be relevant to support safety standards.  It is up to the integrator to prove this relevance for any specific use case.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Represents commonly understood areas/terms within software development, and are meant to aid the user in identifying potential related weaknesses. It is possible for the same weakness to exist within multiple different categories.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This column indicates the context for each kernel configuration (see column H), indicating the relevant Linux kernel subsystem(s) and potential vulnerabilty which is addressed by the configuration setting.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel configurations are features which may be enabled or disabled in the kernel build.  The features listed below are chosen as candidates to support safety goals in safety critical systems.  The integrator may consider these features in a specific use case and judage (based on documentation and source code) whether or not each of these features is relevant to support the safety of the system under consideration.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dependencies change from version to version, and it is the developers' responsibility to check.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Architecture dependencies can be derived by using <a href="http://get_feat.pl/" class="bare">http://get_feat.pl/</a>   For example, to list features supported by arm64 architecture, run:  get_feat.pl --arch=arm64.  Or to list features supported by all architectures in REST format, run:  get_feat.pl rest.  Or to list features supported by currently running kernel, run: get_feat.pl current.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each setting can either be enabled (set to "Y") or disabled ("N").  This column indicates the desired setting for safety features to be supported.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Basic description of each kernel configuration is documented in the Kernel Driver Database  <a href="https://cateee.net/lkddb/web-lkddb/" class="bare">https://cateee.net/lkddb/web-lkddb/</a>  which is built automatically from kernel sources.  Here we provide additional clarifications to help a system integrator understand how each kernel configuration may be relevant to support safety requirments in a specific use case.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The CVEs related to this configuration.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The links to well-known and verified scripts for exploit the kernel when this configuration is not enabled.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Weaknerses and limitations for each kernel feature are addressed, to help the integrator in considering the broader context of its adtoption.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">See Linux Kernel Driver Database <a href="https://cateee.net/lkddb/web-lkddb/" class="bare">https://cateee.net/lkddb/web-lkddb/</a> for each kernel configuration for the most up-to-date information on supported kernel versions for each kernel configuration.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The scope of this documentation is to identify kernel configurations which support features that are potentially useful to enhance safety in specific use cases.  The document should help the integrator focus on a relevant subset of the thousands of available kernel configurations.   It should be clear that this document is not a "plug and play" list, and it is up to the integrator to use the content as a baseline to help focus the search for relevant kernel configurations.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Performance impact on boot time and runtime. Performance of boot might affect the live migration and fail over and recovery time.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Suggestions on configure it on host and/or guest OS, with considerations of performance and isolation brought by VMs.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Links to useful kernel documentation which may be helpful for the integrator in evaluating the relevance of any kernel configuration for a specific use case.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Corruption of memory content</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CWE-466 Return of pointer value outside of expected range  CWE-467 Use of sizeof() on a pointer type  CWE-468 Incorrect pointer scaling  CWE-469 Use of pointer subtraction to determine size  CWE-476 NULL pointer dereference  CWE-587 Assignment of a fixed addres to a pointer  CWE-588 Attempt to access child of a non-structure pointer  CWE-763 Release of invalid pointer or reference  CWE-822 Untrusted pointer derefernece  CWE-823 Use of out-or-range pointer offset  CWE-824 Access of uninitialized pointer  CWE-825 Expired pointer dereference</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Memory management subsystem, Heap Memory: Use after free</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_SLAB_FREELIST_RANDOM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_SLAB || CONFIG_SLUB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires architecture support for SLUB (unqueued) or SLAB memory allocator.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Randomize kernel data structures to help make common kernel exploits more difficult.    Linux freelist is a data structure (FIFO queue) which organizes free heap memory.   During heap overflow attacks, the attacker cannot predict the heap state since the heap may be fragmented into multiple memory areas.  In order to exploit a heap overflow, the attacker will need to control the heap state.  This can be done by repeated allocations of the same size, and leveraging the predictability of the freelist management algorithm to follow future allocations.  For an example, see Job Oberheide&#8217;s blog. To help minimize the risk of heap overflow attack, this configuration setting supports freelist randomization.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The randomization algorithm is carefully chosen to balance sufficient randomization so that the basic heap overflow attack is more difficult, but at the same time avoiding performance impact due to increased time for memory searches in randomized memory. Therefore there are no guarantess that heap overflow attacks will be completely blocked. However, enabling this configuration setting (with negligible performance impact expected) should reduce the risk of heap overflow attacks.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.7–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The integrator in a particular system should confirm: 1. Performance impact matches expectations and is negligible. 2. The risk of heap overflow attacks is reduced to an acceptable level.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A little bit, could be negligible.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://kernel.org/doc/Documentation/admin-guide/hw-vuln/spectre.rst" class="bare">https://kernel.org/doc/Documentation/admin-guide/hw-vuln/spectre.rst</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Memory management subsystem, Heap Memory: Use after free</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_SLAB_FREELIST_HARDENED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_SLAB || CONFIG_SLUB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires architecture support for SLUB (unqueued) or SLAB memory allocator.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This option added XOR operations on SLAB freelist pointers for additional protection. This feature makes the system much less vulnerable to freelist pointer exploits (or heap memory management issues due to freelist pointer overwrites) because an attacker needs to expose both the random value and the location of the freelist pointer.   Continuous enhancements to more recent kernel versions help to make this feature much more capable of protecting heap memory from overflow exploits.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It should be noted that some slab implementations have more sanity-checking than others.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.14–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The integrator in a particular system should confirm: 1. Performance impact matches expectations and is neglible. 2. The risk of heap overflow attacks (or errors due to heap overflow overwirtes) is reduced to an acceptable level. 3. The slab implementation on the specific architecture has undergone sufficient sanity testing for safety critical applications. If not, additional testing may be mandated for safety qualification.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://outflux.net/blog/archives/category/security/" class="bare">https://outflux.net/blog/archives/category/security/</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Memory management subsystem, Heap Memory: Use after free</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_SLAB_MERGE_DEFAULT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_SLAB || CONFIG_SLUB</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disabling this option will prevent slab caches from being merged by the kernel when they share similar charactersitics.  This makes heap overflow exploits much more difficult, since such an exploit will usually only be able to overwrite objects in the same cache.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enabling this setting reduces kernel fragmentation, so that the integrator should check the impact on memory allocation due to disabling</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.13–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Recommendation from Kees Cook  <a href="https://www.openwall.com/lists/kernel-hardening/2017/06/19/33" class="bare">https://www.openwall.com/lists/kernel-hardening/2017/06/19/33</a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Memory management subsystem, Heap Memory: Use after free</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_SHUFFLE_PAGE_ALLOCATOR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SLAB_FREELIST_RANDOM, ACPI_NUMA</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SLAB_FREELIST_RANDOM (see line 22 above) is limited to reducing predictability of the freelist data strucutre, and this configuration extends the randomization to the page allocator free memory ists.  Thus these 2 configurations complement each other and are recommended in tandem.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Page allocator randomization can help to improve cache utilization, but may have a negative performance impact in systems which do not support cache. Therefore by default it will be enabled only after the runtime system detects a direct-mapped mememory side cache. In any case, the randomization may be enabled by explicit setting, in order to reduce the predictability of the page allocator data structures.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5.2–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When enabling the feature, the integrator should confirm: 1. Availibility of direct-mapped memory side cache, in which case the performance vs randomization benefit is expected to be accceptable. 2. In any case, performance impact as well as reduced risk of heap exploitation shall be confirmed in the specific system.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://lore.kernel.org/patchwork/patch/1037734/" class="bare">https://lore.kernel.org/patchwork/patch/1037734/</a></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Memory management subsystem, Heap Memory, Debug subsystem: Use after free</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_SLUB_DEBUG</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SLUB, SYSFS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires architecture support for expert kernel configuration features (CONFIG_EXPERT) as well as SLUB (Unqueued) memory allocator.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable user space allocator validation checking in production image or during development.   Turns on SLUB allocator debugging tracking and exposes information via procfs to help when investigating kernel memory allocation problems.  Slub_debug may be configured to expose only certain information and to improve performance.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Slub_debug may be configured to expose only certain information and to improve performance.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.22–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Full SLUB_DEBUG support has most performance impact from all hardening features.  In a production system minimal debugging (only sanity checks) may be enabled by booting with slub_debug=F.. On the other hand, for testing/development purposes, more extensive features may be enabled, including CONFIG_SLABINFO; see <a href="https://linux.die.net/man/5/slabinfo" class="bare">https://linux.die.net/man/5/slabinfo</a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">See <a href="https://lwn.net/Articles/229984/" class="bare">https://lwn.net/Articles/229984/</a> for some details on SLUB vs SLAB memory allocation.  Also  <a href="https://kernel.org/doc/Documentation/admin-guide/hw-vuln/spectre.rst" class="bare">https://kernel.org/doc/Documentation/admin-guide/hw-vuln/spectre.rst</a> for clarifications of Spectre attacks</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Memory management subsystem, Heap Memory, Debug subsystem: Use after free</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_INIT_ON_FREE_DEFAULT_ON</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Same affect as setting "init_on_free=1" on kernel command line.  This is a more recent enhancement to the kernel, enforcing all page allocator and slab allocator memory to be zeroed when freed.  This helps to avoid many issues related to uninialized heap memory, such as information leakage from heap memory.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5.3-5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expected performance impact 3-5%, and is more expensive than init_on_alloc (see below).</p></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Memory management subsystem, Heap Memory, Debug subsystem: Use after free</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_INIT_ON_ALLOC_DEFAULT_ON</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Same affect as setting "init_on_alloc=1" on kernel command line.  This is a more recent enhancement to the kernel, enforcing all page allocator and slab allocator memory to be zeroed when allocated.  This helps to avoid many issues related to uninialized heap memory, such as information leakage from heap memory.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5.3-5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expected performance impact &lt; 1% (but is dependent on workload and needs to be tested per use case).</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Kernel Memory reference count: Use after free</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_REFCOUNT_FULL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reduce Linux kernel vulernability to specific memory safety errors: related to reference counters (ensure that counters are guaranteed never to overflow).     refcount_t type and corresponding API were introduced to analyze instances of reference counters using 3 Coccinelle patterns: 1. Freeing a referenced object based on the return value from atomic_dec_and_test or one of its variants.  This is the most typical reference counter use case. 2. Using atomic_add_return to decrement a variable and compare its updated value, typically against zero.   3. Using atomic_add_unless to decrememnt a counter only when its value differs from one.   Checks are perfromed to prevent potential memory leaks (object released when reference counter reaches zero), as well as potential use after free.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CVE-2016-0728</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable user space allocator validation checking in production image or during development.   Turns on SLUB allocator debugging tracking and exposes information via procfs to help when investigating kernel memory allocation problems.   Note that this setting is no longer supported in recent kernel versions, and should be replaced by manual testing of relevant subsystems.  Relevant code to support CONFIG_REFCOUNT_FULL may be found in kernel versions which support this feature and the code may be used as a basis to manually set specific settings in a particular use case.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.13–4.20, 5.0–5.4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Potential performance impact, selelctively set on necessary subsytems in production.  Complexity benefit to be weighed against safety benefit (use after free). This features switches to a fully state checked implementation for refcounting infrastructure, and has a performance impact which is acceptable only for development purposes.  Based on the output and analysis during development,  this setting should be disabled during production and APIs run on specific relevant kernel subsutstem.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When enabled, refcount_inc() is replaced by refcount_inc_not_zero_checked(), which checks two conditions: 1) if full then remained topped (i.e., UINT_MAX) and continue to use the object (i.e., leak), and 2) if freed then do not use the object. Similarly refcount_sub_and_test_checked() checks a underflow condition.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://arxiv.org/pdf/1710.06175.pdf" class="bare">https://arxiv.org/pdf/1710.06175.pdf</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Inconsistent data</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CWE-226 Sensitive information in resource not removed before reuse CWE-454 External initialization of trusted variables or data stores CWE-455 Non-exit on failed initialization CWE-459 Incomplete cleanup</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GCC, plugins, Stack memory: Uninitialized variables:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_GCC_PLUGIN_STRUCTKLEAK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires architecture and compiler support for STRUCTLEAK variable initializations.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Zero initialize stack variables/structures on stack Linux kernel is built by default with warnings enabled to detect uniinitialized stack variables.  However, the warning is disabled for variables which are passed by reference to another function, based on the assumption that the called function will initialize the variable.  This CONFIG is provided as a GCC plugin which initializes any such variable to zero.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For performance optimization, the level of coverage provided by this CONFIG may be defined (see CONFIG_GCC_PLUGIN_STRUCTLEAK_BYREF_ALL below).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.11–4.20 and 5.0, 5.1–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In earlier kernel versions (4.11-4.20, 5.0), this CONFIG initialized to zero any variable identified as a user-space pointer (containing a __user attribute).</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GCC, plugins, Stack memory: Uninitialized variables:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_GCC_PLUGIN_STRUCTLEAK_ BYREF_ALL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GCC_PLUGINS, !CC_HAS_AUTO_VAR_INIT_ZERO, !(KASAN &amp;&amp; KASAN_STACK)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires architecture and compiler support for STRUCTLEAK variable initializations.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Zero initialize stack variables/structures passed by reference on stack This CONFIG is provided as a GCC plugin which initializes to zero any stack variables that may be passed by reference and have not already been explicitly initialized. This feature is intended to eliminate all vulnerabilities due to uninitialized stack variables.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runtime performance  impact should be measured for any specific use case.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.14–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In earlier kernel versions (4.11-4.20, 5.0), this configuration initialized to zero all struct type variables which were passed by reference.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Stack memory: Uninitialized variables:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_INIT_STACK_ALL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CC_HAS_AUTO_VAR_INIT</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Initializes all stack variables on function entry to OxAA (for GCC see previous configuration setting)</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dependency on CONFIG_CC_HAS_AUTO_VAR_INIT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5.2-5.8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-ftrivial-auto-var-init in Clang builds.  For GCC builds it is same as CONFIG_GCC_PLUGIN_STRUCTLEAK_BYREF_ALL</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://patchwork.kernel.org/project/linux-kbuild/patch/20190408170418.148554-2-glider@google.com/" class="bare">https://patchwork.kernel.org/project/linux-kbuild/patch/20190408170418.148554-2-glider@google.com/</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CWE-73 External control of file name or path CWE-410 Insufficient resource pool CWE-763 Release pointer or reference CWE-772 Missing release of resource after effective lifetime CWE-826 Premature release of resource during expected lifetime  CWE-908 Use of uninitialized resource CWE-909 Missing initialization of resource CWE-911 Improper update of reference count CWE-920 Improper restriction of power consumption</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Kernel Memory: Isolation of critical code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_BPF_JIT_ALWAYS_ON</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BPF_SYSCALL, HAVE_EBPF_JIT, BPF_JIT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires architecture support for BPF Just-InTime (JIT) compiler.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enables BPF JIT and removes BPF interpreter to avoid speculative execution of BPF instructions by the interpreter.  This setting was introduced to help mitigate the risk of Spectre2 attack, in which the bpf interpreter was used to leak information via cache side channel and let VM read hypervisor memory.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This kernel configuration should be used with appropriate settings of BPF capabilieies (CAP_BPF) based on the specific use case. See  <a href="https://lwn.net/Articles/820560/" class="bare">https://lwn.net/Articles/820560/</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.15–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">eBPF is a powerful VM supporting execution of user space code inside the Linux kernel, thus avoiding direct kernel programming which is not safe. It is commonly used for system profiling and network packet filtering (hence the original name, BPF=Berkley Packet Filter), and is a basic tool used for security profiling. See <a href="https://lwn.net/Articles/740157/" class="bare">https://lwn.net/Articles/740157/</a> for a brief overview.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.spinics.net/lists/netdev/msg484920.html" class="bare">https://www.spinics.net/lists/netdev/msg484920.html</a>  <a href="https://en.wikipedia.org/wiki/Speculative_execution#:~:text=Speculative%20execution%20is%20an%20optimization,known%20that%20it%20is%20needed" class="bare">https://en.wikipedia.org/wiki/Speculative_execution#:~:text=Speculative%20execution%20is%20an%20optimization,known%20that%20it%20is%20needed</a>   for further details on Spectre- type attacks</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel Memory: Isolation of critical code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_BPF_UNPRIV_DEFAULT_OFF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_BPF_SYSCALL</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disables the ability to run unprivileged BPF.  Unprivileged BPF could be used to exploit certain potential speculative execution side-channel vulnerabilities on unmitigated affected hardware.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Stack overflow or underflow</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CWE-120 Buffer copy without checking size of input ("classic buffer overflow)  CWE-121Stack-based bufer overflow  CWE-122 Heap-based buffer overflow  CWE-123 Write-what-where condition  CWE-124 Buffer underwrite ("buffer underflow")  CWE-125 Out-of-bounds read  CWE-126 Buffer over-read  CWE-127 Buffer under-read  CWE-129 Improper validation of array index  CWE-131 Incorrect calculation of buffer size  CWE-786 Access of memory location before start of buffer  CWE-787 Out-of-bounds write  CWE-788 Access memory location after end of buffer  CWE-805 Buffer access with incorrect length value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">See above</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5.13-5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">See above</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A recent example of how unprivileged BPF may be abused, see  <a href="https://lwn.net/Articles/887326/" class="bare">https://lwn.net/Articles/887326/</a></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Stack memory: Stack overflow:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_STACKPROTECTOR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HAVE_STACKPROTECTOR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires architecture support for STACKPROTECTOR and gcc compiler option -fstack-protector</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Turns on stack protection feature in gcc compiler.  A special value ("canary") is stored between the regular stack variables and the function return address.  In case of a stack overflow, instead of overwriting the function return address - the canary will be overwritten.  On function return, the canary value will be checked, and if it has been changed - the function will terminate with a kernel panic (stack overflow).</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires gcc v4.2 or above. To minimize performance impact, any functions which has an 8-byte or larger character array on the stack will have the stack-protector logic enabled.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.18–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Potential performance impact.  On an x86 defconfig build, this feature will add canary checks to only ~3% of all kernel functions, increasing kernel code size by ~0.3%.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Increasing kernel code size by ~0.3%.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Host and Guest OS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Stack memory: Stack overflow:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_STACKPROTECTOR_STRONG</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STACKPROTECTOR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires architecture support and gcc compiler option -fstack-protector-strong</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Turns on strong stack protection feature in gcc compiler.  In addition to stack protection supported by the basic CONFIG_STACKPROTECTOR, the canary logic will be added in any of the following conditions: 1. A local variables' address is used as prt of the right hand side of an assignment or function argument. 2. A local variable is an array, or a union containing an array (regardless of array type or length). 3. Function uses register local variables.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires gcc v4.9 or above</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.18–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Potential performance impact (most specifically for "strong" option.  Performance impact:  On an x86 defconfig build, this feature will add canary checks to ~20% of all kernel functions, which increases the kernel code size by ~2%.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STACKPROTECTOR_STRONG inserts a canary to ~20% of functions in the kernel.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Stack memory: Stack overflow:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_FORTIFY_SOURCE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ARCH_HAS_FORTIFY_SOURCE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires relevant compiler option to be set and architecture support for FORTIFY_SOURCE.  For example, in gcc, if fortify_source is set to 1 with compiler optimization level set to 1, the compiler will only perform checks which shoiuld not change the beahvior of conforming programs.  If fortify_source is set to 2, additional checking is added, but some conforming programs may fail.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Detects buffer overflows in common string and memory functions</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compiler dependency, since the feature is supported only wgere the compiler can determine and validate the buffer sizes.  For example, supported by gcc v4.0 or above.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.13–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Potential performance impact, compiler support level most commonly can be set.    Setting the fortify_source level should consider both performance impact of the additional checks, impact of false positivies, as well as necessary security/safety level for the specific use case.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Stack memory: Stack overflow:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_SCHED_STACK_END_CHECK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DEBUG_KERNEL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Depends on DEBUG_KERNEL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Checks for stack overrun on calls to schedule().  Kernel panic in case the stack overflow area is overwritten.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Security implications of debug kernel for usage in production systems needs to be evaluated for each specific use case.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.18–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Minimal expected performance impact</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stack memory: Stack overflow:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_VMAP_STACK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HAVE_ARCH_VMAP_STACK, !KASAN || KASAN_VMALLOC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not supported on MIPS platforms.  Depends on architecture support for KASAN.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Detects kernel stack overflows to be caught immediately rather than causing corruption which then needs to be diagnosed.  Enables virtually mapped kernel stacks with guard pages, by default, vmap_area includes one more page as a guard.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CVE-2016-10153, CVE-2017-8068, CVE-2017-8070</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">To use this with KASAN, the architecture must support backing virtual mappings with real shadow memory, and KASAN_VMALLOC must be enabled.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.9–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Minimal expected performance impact, due to minimal use of VLAs (Very Large Arrays) in the kernel (avoided completely since kernel v4.20), the performance is affected by number of cache entries.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://kernel.org/doc/Documentation/dev-tools/kasan.rst" class="bare">https://kernel.org/doc/Documentation/dev-tools/kasan.rst</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stack memory: Stack overflow:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_THREAD_INFO_IN_TASK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires architecture support to move all thread_info fields except flags and stack pointer, and to fix various runtime bugs.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Move thread information off the stack and into the task struct.  This is most effective for safety of task info, particularly during context switch.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Together with VMAP_STACK and CONFIG_GCC_PLUGIN_STACKLEAK, these configurations help to protect kernel stack memory from most kernel stack depth overflow issues.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.9-4.20, 5.0-5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">x86 implementation actually improved performance due to code cleanup, but not implemented in most architectures.  No expected performance impact unless there are archtecture-specific issues involved.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stack memory: Stack overflow:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_GCC_PLUGIN_STACKLEAK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GCC_PLUGINS, HAVE_ARCH_STACKLEAK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Depends on support for gcc plugins (gcc v4.5.0 or later), and archtiecture support for stackleak (to fill stack with poisong value before returning from system calls).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Makes the kernel erase the kernel stack before returning from system calls, leaving the stack initialized to the poison value.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Recent patch to be applied, relevant only for gcc v4.8 or higher and on x86/i386/arm64 architectures.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.20, 5.0-5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Performance impact, 1% slowdown on a single CPU system.  Should check your implementation before deployment.  Performance impact depends on depth of stack usage, rather than function calling complexity.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">See <a href="https://lwn.net/Articles/822240/" class="bare">https://lwn.net/Articles/822240/</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stack memory: Stack overflow:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_PAGE_POISONING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PAGE_POISONING_NO_SANITY, HIBERNATION</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fill pages with the poson pattern after free, verify the pattern before allocation.  Dependent on "page_poison=1" in kernel command line.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.6-4.20, 5.0-5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Performance impact.  To minimize, use init_on_free=1 command line option instead, whcih will sanitize only freed pages (and won&#8217;t check on allocation).</p></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stack memory: Stack overflow:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_PAGE_POISONING_NO_SANITY</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PAGE_POISONING</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If set to Y will skip the sanity checking on allocation and only fill the pages with poison on free.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.6-4.20, 5.0-5.10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If enabled will reduce performance impact.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Heap memory: Heap overflow:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_DEBUG_LIST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_DEBUG_KERNEL, CONFIG_BUG_ON_DATA_CORRUPTION</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Depends on DEBUG_KERNEL.  Depends on BUG_ON_DATA_ CORRUPTION (see below)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extended checks in linked list walking routines</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Security implications of debug kernel for usage in production systems needs to be evaluated for each specific use case.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.19–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.16, 5.17-rc+HEAD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Although not expected to be major, integrator should confirm performance impact in the specific use case.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-10661" class="bare">https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-10661</a></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Driver: Heap overflow:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_DEBUG_SG</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DEBUG_KERNEL</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable this to turn on checks on scatter-gather tables. This can help find problems with drivers that do not properly initialize their sg tables.  Used to support DMA (direct memory access)</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Read or write access to memory allocated to another software element</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CWE-73 External control of file name or path CWE-410 Insufficient resource pool CWE-763 Release pointer or reference CWE-772 Missing release of resource after effective lifetime CWE-826 Premature release of resource during expected lifetime  CWE-908 Use of uninitialized resource CWE-909 Missing initialization of resource CWE-911 Improper update of reference count CWE-920 Improper restriction of power consumption</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.24–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Although not expected to be major, integrator should confirm performance impact in the specific use case.  Presumably most relevant for development only.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.kernel.org/doc/Documentation/DMA-API-HOWTO.txt" class="bare">https://www.kernel.org/doc/Documentation/DMA-API-HOWTO.txt</a></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Kernel Memory: Kernel corruption of user space memory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_BUG_ON_DATA_CORRUPTION</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DEBUG_LIST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Depends on DEBUG_KERNEL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bug on kernel data structures when checked for validity</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Security implications of debug kernel for usage in production systems needs to be evaluated for each specific use case.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.10–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Performance impact, not relevant as currently implemented for linked lists (see CONFIG_DEBUG_LIST).</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel Memory: Kernel corruption of user space memory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_DEVKMEM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">!ARM64</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not supported by ARM64</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disable direct kernel memory access</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/dev/kmem should only be used for kernel debugging, and normally should not be enabled for production systems.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.26–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Improved performance</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel Memory: Kernel corruption of user space memory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_DEVMEM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you must enable DEVMEM, at lesat enable strict mode: CONFIG_STRICT_DEVMEM, CONFIG_IO_STRICT_DEVMEM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disable direct physical memory access</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Safety mechanisms which rely on direct physical memory access to check hardware integrity will not allow DEVMEM to be disabled.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Safety mechanisms which rely on /dev/mem can and should be rewritten to avoid direct physical memory access, and to use standard Linux drivers and fault handling.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel Memory: Kernel corruption of user space memory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_DEVPORT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ISA || PCI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">To enable would require support of ISA-bus hardware as well as PCI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disable direct physical memory access to IO ports via /dev/port device</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Safety mechanisms which rely on direct physical memory access to IO ports to check hardware integrity will not allow DEVPORT to be disabled.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.22–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Safety mechanisms which rely on /dev/port can and should be rewritten to avoid direct physical memory access, and to use standard Linux drivers and fault handling.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel Memory: Kernel corruption of user space memory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_ACPI_CUSTOM_METHOD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DEBUG_FS</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disable debug feature which allows ACPI methods to be inserted or replaced without rebooting the system.  If enabled, this feature would allow direct physical memory writing.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For details on how this may be (ab)used, see  <a href="https://mjmwired.net/kernel/Documentation/firmware-guide/acpi/method-customizing.rst" class="bare">https://mjmwired.net/kernel/Documentation/firmware-guide/acpi/method-customizing.rst</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.0-3.19, 4.0-4.20, 5.0-5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No anticipated runtime impact, debug feature which should not be used in production software.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://devdoc.net/linux/LinuxKernel-docs-5.3rc4/firmware-guide/acpi/index.html" class="bare">http://devdoc.net/linux/LinuxKernel-docs-5.3rc4/firmware-guide/acpi/index.html</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel Memory: Kernel corruption of user space memory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_LEGACY_PTYS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disable legacy PTY (pseudoterminal) interface, which had numerous security issues.  Use more modern PTY interface, see  <a href="https://cateee.net/lkddb/web-lkddb/UNIX98_PTYS.html" class="bare">https://cateee.net/lkddb/web-lkddb/UNIX98_PTYS.html</a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Negligible anticipated performance impact, UNIX98 PTY support is well established and should be used.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel Memory: Kernel corruption of user space memory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_HIBERNATION   <a href="https://cateee.net/lkddb/web-lkddb/HIBERNATION.html" class="bare">https://cateee.net/lkddb/web-lkddb/HIBERNATION.html</a> ,</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SWAP, ARCH_HIBERNATION_POSSIBLE, HIBERNATE_CALLBACKS || LZO_COMPRESS || LZO_DECOMPRESS ||CRC32</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hibernation - see CONFIG_HIBERNATION  <a href="https://cateee.net/lkddb/web-lkddb/HIBERNATION.html" class="bare">https://cateee.net/lkddb/web-lkddb/HIBERNATION.html</a> :  Depends on architecture support for HIBERNATION as well as memory swap,both of which are commonly found.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Block replacement of running kernel or enable switch to safe state</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User space tools to support suspend to disk:  <a href="http://suspend.sf.net" class="bare">http://suspend.sf.net</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.23–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hibernation:  If supported, user space tools as well as bootloader configuration can be used to enable suspend to disk functionality.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel Memory: Kernel corruption of user space memory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_KEXEC    <a href="https://cateee.net/lkddb/web-lkddb/KEXEC.html" class="bare">https://cateee.net/lkddb/web-lkddb/KEXEC.html</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">!SMP || PM_SLEEP_SMP,  MMU, KEXEC_CORE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kexec, see CONFIG_EXEC  <a href="https://cateee.net/lkddb/web-lkddb/EXEC.html" class="bare">https://cateee.net/lkddb/web-lkddb/EXEC.html</a>:  system reboot on kernel level (swtich down current kernel and switch to another kernel image).  Depends on hardware MMU (memory management unit) support, which is commonly found.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Block replacement of running kernel or enable switch to safe state</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User space tools to support suspend to disk:  <a href="http://suspend.sf.net" class="bare">http://suspend.sf.net</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.16–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">kexec:  Needs to be aligned with use case requirements for system behavior.  An alternative option is to define an alternative kernel image as the system "safe state", in which case kexec can and should be enabled.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel Memory: Kernel corruption of user space memory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_HARDENED_USERCOPY</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HAVE_HARDENED_USERCOPY_ALLOCATOR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not supported on MIPS platforms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Harden memory copies between kernel and user-space.  Rejects memory ranges which are obviously wrong, for example - larger than specified heap object, span multiple separately allocated pages, not on process stack, or are part of the kerenl source text.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.8–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kills entire classes of heap overflow exploits and similar kernel memory vulnerabilities.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel Memory: Kernel corruption of user space memory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_HARDENED_USERCOPY_FALLBACK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HARDENED_USERCOPY</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not supported on MIPS platforms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disable fallback to gain full whitelist enforcement.  Missing usercopy whitelists can be identified via a warning message to the kernel log (instead of rejecting the copy). Currently a temporary configuration setting which should be removed once all usercopy whitelists have been identified and fixed.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usercopy whitelisting is based on a PAX security feature to minimize the scope of memory allocations which can be copied to and from userspace.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.16–4.20, 5.0–5.15</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enhancements to whitelisting in more recent kernel versions</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel Memory: Kernel corruption of user space memory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_HARDENED_USERCOPY_PAGESPAN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HARDENED_USERCOPY, HAVE_HARDENED_USERCOPY_ALLOCATOR, STRICT_DEVMEM, MMU, DEVMEM, ARCH_HAS_DEVMEM_IS_ALLOWED, EXPERT, DEBUG_KERNEL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not supported on MIPS platforms, default on for PPC, X86 and ARM64</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disable fallback to gain full whitelist enforcement.  Avoid rejecting existing instances of multi-page allocation which are not currently whitelisted and should not be rejected. Currently a temporary configuration setting which should be removed once all usercopy whitelists have been identified and fixed.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usercopy whitelisting is based on a PAX security feature to minimize the scope of memory allocations which can be copied to and from userspace.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.8–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enhancements to whitelisting in more recent kernel versions</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel Memory: Kernel corruption of user space memory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SECURITY_DMESG_RESTRICT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DMESG_RESTRICT prevents unprivileged users from viewing those messages using dmesg command. When DMESG_RESTRICT is enabled, only users with system administration privileges are allowed to see the messages. When DMESG_RESTRICT is not enabled, every user can see the messages.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CVE-2018-17182</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Heap memory:  R/W access to memory allocated to another software element:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_COMPAT_BRK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">May break some old binaries, but for most newly developed systems (since 20000, this should be safe.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable heap randomization (note that this feature set to "Y" will actually disable heap randomization).</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dependency on kernel.randomize_va_space kernel setting, which should be set to 2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.25–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Major performance impact is not expected, but needs to be evaulated in the specific use case.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Heap memory:  R/W access to memory allocated to another software element:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_USERFAULTFD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MMU</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Depends on hardware architecture support for MMU (memory management unit) which is commonly found.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disable (by setting to "N") the userfaultfd() system call which allows the user to Intercept and handle page faults in user space</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Such code should be moved to kernel space</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.3–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fault handling whihc relies on userfaultfd() should be moved to drivers</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Kernel Memory: R/W access to memory allocated to another software element:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_STRICT_KERNEL_RWX</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ARCH_OPTIONAL_KERNEL_RWX, ARCH_HAS_STRICT_KERNEL_RWX, !ARCH_OPTIONAL_KERNEL_RWX || ARCH_OPTIONAL_KERNEL_RWX_DEFAULT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not supported on MIPS platforms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Make kernel text read-only and non-executable; and makes non-text kernel read-only data non-executable</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.11–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Standard security practice, and should be enabled.  Protects against kernel exploitations (e.g., modifying the heap or kernel text).</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel Memory: R/W access to memory allocated to another software element:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_STRICT_MODULE_RWX</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ARCH_OPTIONAL_KERNEL_RWX, ARCH_HAS_STRICT_MODULE_RWX, MODULES, !ARCH_OPTIONAL_KERNEL_RWX || ARCH_OPTIONAL_KERNEL_RWX_DEFAULT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not supported on MIPS platforms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Make module text and rodata readonly, and makes non-text memory non-executable</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.11–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Standard security practice, and should be enabled.  Protects against kernel exploitations (e.g., modifying text)</p></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Kernel Memory: W+X access to memory pages</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_DEBUG_WX</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MMU, ARM_PTDUMP_CORE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not supported on all architectures (primarily x86 and arm)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Issue a warning if any pages have W+X access.  W+X access is not expected after applying NX or hardened access permissions.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Warnings only after issued, it is up to the integrator to check and correct if needed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">arm: 4.16-4.20, 5.0-5.17 x86: 4.4-4.20, 5.0-5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Since this is executed as a one time check on kernel boot, there is negligible expected performance impact</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Stack memory:  Enable traceability:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_STACKTRACE_SUPPORT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STACKTRACE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Supported in most common architectures</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stack tracing</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version support is architecture dependent, but supported for most architectures on recent kernel versions.  2.6.18-2.6.39, 3.0-3.19, 4.0-4.20, 5.0-5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Major performance impact is not expected, but needs to be evaulated in the specific use case. Stack traces are fundamentl to fault handling.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stack memory:  Enable traceability:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_STACK_TRACER</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_HAVE_FUNCTION_TRACER, FUNCTION_TRACER, STACKTRACE, KALLSYMS</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Records maximum stack footprint of the kernel and displays in sysfs.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If the kernel is configured with CONFIG_DYNAMIC_FTRACE set to "Y", then there will be no overhead while the stack tracer is disabled on the kernel command line. This allows for selective enabling as needed in the production system.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.28–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Major performance impact is not expected, but needs to be evaulated in the specific use case.  Trace functions can be individually enabled, and those which are disabled will not affect system performance. Stack traces are fundamentl to fault halting.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.kernel.org/doc/Documentation/trace/ftrace-design.txt" class="bare">https://www.kernel.org/doc/Documentation/trace/ftrace-design.txt</a></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Kernel memory:  Enable traceability:</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The execution flow of various parallel threads in the system (kernel and user-space) is managed so that each task runs without blocks in exeuction, in the correct sequence, and exactly the correct number of times. Access to shared data is synchronized, and race conditions are avoided.  An incorrect thread execution flow will be detected and prevented.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Timing and execution</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_KPROBES</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MODULES, HAVE_KPROBES, KALLSYMS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enabling this setting requires architecture support for kprobe hooks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disable kernel debugging features.  kprobes supports trap of almost any kernel address and execute a callback function.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Blocking of execution</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Safety mechanisms which rely on KPROBES for kernel debugging will not allow this to be disabled in production systems.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.9–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel debugging features which allow manipulation of kernel in production systems should not be supported by unprivileged users.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CWE-663 Use of a non-reentrant function in a concurrent context</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel memory:  Enable traceability:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_PROC_KCORE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">!ARM, PROC_FS, MMU, CRASH_CORE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not supported by ARM, enabling this setting requires support for procfs and MMU</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disable kernel debugging features.  Provides a virtual ELF core file of the live kernel, which can then be read using gdb and other ELF tools.  However, no modifications can be made using this feature.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Safety mechanisms which rely on PROC_KCORE for kernel debugging will not allow this to be disabled in production systems.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.27–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel debugging features which allow manipulation of kernel in production systems should not be supported by unprivileged users.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel memory:  Enable traceability:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_ELF_CORE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">COREDUMP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires architecture support for core dumps and expert kernel features</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Support generation of core dumps</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Core dumps are fundamental tools for fault handling.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.16–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enabling this feature adds about 4K to system footprint.   Focus on safety requirements for core dumps</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel memory:  Enable traceability:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_PROC_PAGE_MONITOR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PROC_FS, MMU</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires architecture support for procfs, MMU and expert kernel features</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Monitor process memory utilizaiton</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Monitoring interfaces for process memory utilization are fundamental tools for fault handling.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.25–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enabling this feature adds about 4K to system footprint.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel memory:  Enable traceability:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_FTRACE_SYSCALLS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HAVE_SYSCALL_TRACEPOINTS, GENERIC_TRACER, KALLSYMS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires architecture support for hooks to trace syscall entry/exit.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable basic tracer to catch syscall entry &amp; exit events</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Potential performance impact</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.30–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Most relevant for development analysis, and should be disabled in production system.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel memory:  Enable traceability:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_KALLSYMS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enabling this setting requires architecture support for expert kernel features.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disable kernel debugging features.  Enabling this feature loads debug symbols</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.5.45-2.5.75, 2.6.20–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel debugging features which allow manipulation of kernel in production systems should not be supported by unprivileged users. In use cases where KALLSYMS cannot be disabled, /proc/sys/kernel/kptr_restrict can be set to 2 which blocks output of kernel points (kernel points printed using %pK will be replaced with 0&#8217;s, for privileged as well as unprivileged users).</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://lwn.net/Articles/420403/" class="bare">https://lwn.net/Articles/420403/</a></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Watchdog, sysctl, debug: kernel mode lockup</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_SOFTLOCKUP_DETECTOR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DEBUG_KERNEL, !S390, LOCKUP_DETECTOR</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable kernel to act as a watchdog to detect soft lockups (bugs that cause the kernel to loop in kernel mode for more than 20 seconds, without giving other tasks a chance to run).</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Deadlocks</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.13–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CWE-833 Deadlock</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Watchdog, sysctl, debug: kernel mode lockup</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_DETECT_HUNG_TASK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DEBUG_KERNEL, SOFTLOCKUP_DETECTOR</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable kernel to detect "hung tasks" (bugs that cause the task to be stuck in uninterruptible state indefinitely).</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.30–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Watchdog, sysctl, debug: kernel mode lockup</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_WQ_WATCHDOG</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable stall detection on workqueues</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.5–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Watchdog, sysctl, debug: kernel mode lockup</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_KCSAN</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dynamic Analysis</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.kernel.org/doc/html/latest/dev-tools/kcsan.html" class="bare">https://www.kernel.org/doc/html/latest/dev-tools/kcsan.html</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5.8–5.17</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Watchdog, sysctl, debug: kernel mode lockup</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_PROVE_LOCKING</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable kernel to report locking related deadlocks before they actually occur</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.18–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Locking, debug: RT mutexes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_DEBUG_RT_MUTEXES</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Livelocks</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CWE-412 Unrestricted externally accessible lock CWE-413 Improper resource locking CWE-414 Missing lock check CWE-609 double-checking locking CWE-764 Multiple locks of a critical resource CWE-765 Multiple unlocks of a critical resource CWE-832 Unlock of a resource that is not locked</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allows rt mutex semantics violations and rt mutex related deadlocks to be detected and reported automatically</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.18–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Locking, debug: RT mutexes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_DEBUG_NOTIFIERS</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Incorrect allocation of execution time</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CWE-770 Allocation of resources without limits or throttling</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Notification chains are used by Linux kernel to allow different subsystems to subscribe on asynchronous events from other subsystems.  The purpose is to enable independent subsystems to communicate and align, it is used for communication within the kernel only.  The notification chains are a list of callback functions which are executed when an event occurs. This configuration setting provides sanity checks on notifier chains.  It is most useful for kernel developers.</p></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.29–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Since this is executed as a one time check on kernel boot, there is negligible expected performance impact</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Locking, debug: RT mutexes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_LOCK_STAT</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable tracking lock contention points, by collecting lock usage statistics</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.23–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Locking, debug: RT mutexes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_DEBUG_SPINLOCK</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Spinlock and rw-lock debugging, basic checks.  Build SMP to catch missing spinlock initialization and certain other kinds of spinlock errors commonly made</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.5.45-2.5.75, 2.6.0–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Locking, debug: RT mutexes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_DEBUG_MUTEXES</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mutex debugging, apply basic checks.  Allows mutex semantics violations to be detected and reported.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.16–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Locking, debug: RT mutexes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_DEBUG_WW_MUTEX_SLOWPATH</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wait/wound mutex debugging, slowpath testing</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.11–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Significant performance impact.  Should only be used by driver developers.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Locking, debug: RT mutexes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_DEBUG_LOCK_ALLOC</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lock debugging: detect incorrect freeing of live locks</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.18–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Locking, debug: RT mutexes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_DEBUG_LOCKING_API_SELFTESTS</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Locking API boot-time self-tests</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.18–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Locking, debug: RT mutexes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_LOCK_TORTURE_TEST</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Torture tests for locking</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The kernel module may be built after the fact on the running kernel to be tested, if desired.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.15–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Locking, debug: RT mutexes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_WW_MUTEX_SELFTEST</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wait/wound mutext selftests</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Recommended to enable DEBUG_WW_MUTEX_SLOWPATH in conjunction with this test harness</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.11–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Locking, debug: RT mutexes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_RCU_TORTURE_TEST</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Torture tests for RCU</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The kernel module may be built after the fact on the running kernel to be tested, if desired.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.15-2.6.39, 3.0-3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Locking, debug: RT mutexes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_DEBUG_ATOMIC_SLEEP</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check sleep inside atomic section.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.1–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Locking, debug: RT mutexes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_SIGNALFD</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allows signals to be received on a file descriptor fixes signal race conditions. pidfd_send_signal() enables signaling a process through a pidfd to eliminate the PID wrap resulting in sending signals to a wrong process.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.6.22–2.6.39, 3.0–3.19, 4.0–4.20, 5.0–5.17</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Branch Target Buffer: Side Channel Attacks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_PAGE_TABLE_ISOLATION</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_PAGE_TABLE_ISOLATION mode enableds _pgd_alloc() alloc 8kb, two page tables at a time, of not configured, 4kb, one page table is alloced at a time.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">whether the arch is vulnerable to meltdown alike attacks</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Anlaysis for attack interfaces and whether they are vulnerable to meltdown attacks to decide whether to enable this configuration.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Branch Target Buffer: Side Channel Attacks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_RETPOLINE</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BTB stores some parts of the bits of PC, not the full bits of PC. Using this primitive, an attacker is able to inject an indirect branch target into the BTB, and consequently run some codes in a speculative context. It can leak a sensitive data across some boundaries. (e.g. between VMs, Processes, &#8230;&#8203;) The attack is called Spectre Variant2. and retpoline has been introducted to stop the attack.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Anlaysis for architectures (AMD is not known to this till now, however this situation might change in future) and whether they are vulnerable to Spectre Variant2 attacks to decide whether to enable this configuration.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Branch Target Buffer: Side Channel Attacks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UNMAP_KERNEL_AT_EL0</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Supported by ARM only</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unmap kernel when running in userspace (aka \"KAISER\")</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Consider this when design and use ARM CPU.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Branch Target Buffer: Side Channel Attacks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HARDEN_BRANCH_PREDICTOR</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Harden the branch predictor against aliasing attacks</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Anlaysis for architectures (AMD is not known to this till now, however this situation might change in future) and whether they are vulnerable to Spectre Variant2 attacks to decide whether to enable this configuration.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Branch Target Buffer: Side Channel Attacks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HARDEN_EL2_VECTORS</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Harden EL2 vector mapping against system register leak</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Anlaysis for architectures (AMD is not known to this till now, however this situation might change in future) and whether they are vulnerable to Spectre Variant2 attacks to decide whether to enable this configuration.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Branch Target Buffer: Side Channel Attacks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ARM64_SSBD</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Supported by ARM only</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Y</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Speculative Store Bypass Disable</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Anlaysis for architectures (AMD is not known to this till now, however this situation might change in future) and whether they are vulnerable to Spectre Variant2 attacks to decide whether to enable this configuration.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Branch Target Buffer: Side Channel Attacks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONFIG_BPF_UNPRIV_DEFAULT_OFF</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disable unprivileged BPF by default</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Based on whether the system is locked down, and if there are unprevileged BPF code allowed.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Live Patch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LIVEPATCH</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DYNAMIC_FTRACE_WITH_REGS || DYNAMIC_FTRACE_WITH_ARGS, MODULES, SYSFS, KALLSYMS_ALL, HAVE_LIVEPATCH, !TRIM_UNUSED_KSYMS</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Livepatch is a feature that applies kernel patches without any system reboot</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For safety concern, N for default, because we don&#8217;t know if the patch is secure or not, if the patch is from a trusted source, and we need to have full knowlege of  the patch to enabled this. If enabled, we need a syslog for what are introduced by the new patch.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link</p></td>
 </tr>
 </tbody>
 </table>
@@ -232,7 +1286,7 @@
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-04-06 15:29:16 UTC
+Last updated 2022-04-06 21:29:33 UTC
 </div>
 </div>
 </body>
