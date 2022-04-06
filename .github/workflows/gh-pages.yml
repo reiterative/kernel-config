@@ -1,0 +1,37 @@
+name: github pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Upgrade pip
+        run: |
+          # install pip=>20.1 to use "pip cache dir"
+          python3 -m pip install --upgrade pip
+
+      - name: Build docs
+        run: |
+          mkdir gh-pages
+          touch gh-pages/.nojekyll
+          cd docs/
+          make html
+          cp -r _build/* ../gh-pages/
+
+      - name: Deploy docs
+            if: ${{ github.event_name == 'push' }}
+            uses: JamesIves/github-pages-deploy-action@4.1.4
+            with:
+              branch: gh-pages
+              folder: gh-pages
