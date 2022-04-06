@@ -16,10 +16,9 @@ jobs:
         with:
           python-version: '3.8'
 
-      - name: Upgrade pip
+      - name: Install sphinx
         run: |
-          # install pip=>20.1 to use "pip cache dir"
-          python3 -m pip install --upgrade pip
+          sudo apt-get install python3-sphinx
 
       - name: Build docs
         run: |
