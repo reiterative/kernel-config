@@ -30,8 +30,7 @@ jobs:
           cp -r _build/* ../gh-pages/
 
       - name: Deploy docs
-            if: ${{ github.event_name == 'push' }}
-            uses: JamesIves/github-pages-deploy-action@4.1.4
-            with:
-              branch: gh-pages
-              folder: gh-pages
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: gh-pages
