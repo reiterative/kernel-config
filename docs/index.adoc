@@ -10,9 +10,9 @@
 
 toc::[]
 
-== CWE context
+== Configs for safety analysis
 
-[format=tsv, width=100%, cols="4,1,3,3,3"]
+[%header, format=tsv, width=100%, cols="2,3,2,3,1,4,2,3,2,3,2,2,2,2"]
 |===
-include::cwe.tsv[]
+include::configs.tsv[]
 |===
